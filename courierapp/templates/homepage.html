@@ -1,0 +1,23 @@
+<!-- templates/homepage.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+
+    <h1>Welcome to the Courier App</h1>
+
+    <!-- Navigation Menu -->
+    <ul>
+        <li><a href="{% url 'delivery-list' %}">View All Deliveries</a></li>
+        <li><a href="{% url 'delivery-detail' pk=1 %}">View a Specific Delivery</a></li>
+        <li><a href="{% url 'update-delivery-date' pk=1 %}">Update Delivery Date</a></li>
+        <!-- Add more menu items as needed -->
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- deliveries/templates/homepage.html -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Courier App - Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Courier App</a>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Welcome to Courier App</h1>
+
+                <!-- Tracking Form -->
+                <form method="post" action="{% url 'homepage' %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        {{ form.tracking_number }}
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Track Parcel</button>
+                        </div>
+                    </div>
+                </form>
+
+                {% if not form.is_valid and form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      <strong>Error:</strong> This tracking number does not exist.
+                    </div>
+                {% endif %}
+
+                <!-- Display Parcel Details -->
+                {% if parcel %}
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h2 class="card-title">Parcel Details</h2>
+                            <p class="card-text"><strong>Tracking Number:</strong> {{ parcel.tracking_number }}</p>
+                            <p class="card-text"><strong>Weight:</strong> {{ parcel.weight }}</p>
+                            <p class="card-text"><strong>Description:</strong> {{ parcel.description }}</p>
+                            <p class="card-text"><strong>Status:</strong> {{ delivery.status }}</p>
+                            <p class="card-text"><strong>Planned Delivery Date:</strong> {{ parcel.planned_delivery_date }}</p>
+                            <a href="{% url 'update_delivery_date' tracking_number=parcel.tracking_number %}" class="btn btn-info">Change Delivery Date</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    </body>
+    </html>
+
+    {% endblock %}
